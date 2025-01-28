@@ -45,7 +45,12 @@ public class ExaminerServiceTest {
     public void shouldReturnResultOfGetQuestions() {
         List<Question> questionList = new ArrayList<>(List.of(
                 new Question("How many primitive type are there in java", "8")));
-        Assertions.assertEquals(new ResponseEntity<>(questionList, HttpStatus.OK), out.getQuestions(1));
+        Assertions.assertEquals(questionList, out.getQuestions(1));
 
+    }
+
+    @Test
+    public void shouldReturnResultOfGetQuestionsWhenAmountMoreSizeOfRepository() {
+        Assertions.assertThrows(RuntimeException.class, () -> out.getQuestions(6));
     }
 }

@@ -67,4 +67,5 @@ public class JavaQuestionTest {
         Question randomQuestion = out.getRandomQuestion();
         Assertions.assertTrue(questionList.contains(randomQuestion));
     }
+
 }

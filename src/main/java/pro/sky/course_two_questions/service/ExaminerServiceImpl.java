@@ -3,9 +3,12 @@ package pro.sky.course_two_questions.service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import pro.sky.course_two_questions.domain.Question;
+import pro.sky.course_two_questions.exception.InvalidArgumentException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -20,9 +23,9 @@ public class ExaminerServiceImpl implements ExaminerService {
     }
 
     @Override
-    public ResponseEntity<?> getQuestions(int amount) {
+    public Collection<Question> getQuestions(int amount) throws RuntimeException{
         if (amount > questionService.getAll().size()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new RuntimeException();
         }
         while (amount > 0) {
             Question randomQuestion = questionService.getRandomQuestion();
@@ -31,6 +34,6 @@ public class ExaminerServiceImpl implements ExaminerService {
                 amount--;
             }
         }
-        return new ResponseEntity<>(questionsList, HttpStatus.OK);
+        return questionsList;
     }
 }
