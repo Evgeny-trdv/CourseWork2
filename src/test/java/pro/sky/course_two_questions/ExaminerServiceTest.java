@@ -10,7 +10,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import pro.sky.course_two_questions.domain.Question;
+import pro.sky.course_two_questions.exception.InvalidArgumentException;
 import pro.sky.course_two_questions.service.ExaminerServiceImpl;
 import pro.sky.course_two_questions.service.QuestionService;
 
@@ -35,14 +37,15 @@ public class ExaminerServiceTest {
         new Question("Which method can be used to find the length of a string?", "length()")
         ));
 
-        Mockito.when(questionService.getRandomQuestion())
-                .thenReturn(
-                        new Question("How many primitive type are there in java", "8")
-                );
     }
 
     @Test
     public void shouldReturnResultOfGetQuestions() {
+                Mockito.when(questionService.getRandomQuestion())
+                .thenReturn(
+                        new Question("How many primitive type are there in java", "8")
+                );
+
         List<Question> questionList = new ArrayList<>(List.of(
                 new Question("How many primitive type are there in java", "8")));
         Assertions.assertEquals(questionList, out.getQuestions(1));
@@ -51,6 +54,6 @@ public class ExaminerServiceTest {
 
     @Test
     public void shouldReturnResultOfGetQuestionsWhenAmountMoreSizeOfRepository() {
-        Assertions.assertThrows(RuntimeException.class, () -> out.getQuestions(6));
+        Assertions.assertThrows(InvalidArgumentException.class, () -> out.getQuestions(6));
     }
 }

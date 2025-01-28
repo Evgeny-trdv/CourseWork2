@@ -23,9 +23,9 @@ public class ExaminerServiceImpl implements ExaminerService {
     }
 
     @Override
-    public Collection<Question> getQuestions(int amount) throws RuntimeException{
+    public Collection<Question> getQuestions(int amount) throws InvalidArgumentException{
         if (amount > questionService.getAll().size()) {
-            throw new RuntimeException();
+            throw new InvalidArgumentException();
         }
         while (amount > 0) {
             Question randomQuestion = questionService.getRandomQuestion();

@@ -68,4 +68,11 @@ public class JavaQuestionTest {
         Assertions.assertTrue(questionList.contains(randomQuestion));
     }
 
+    @Test
+    public void shouldReturnResultOfAddWhenTryAddsTwoIdenticalQuestions() {
+        out.add("How do you insert comments in Java code?", "//");
+        out.add("Which method can be used to find the length of a string?", "length()");
+        out.add("How do you insert comments in Java code?", "//");
+        Assertions.assertEquals(2, out.getAll().size());
+    }
 }
